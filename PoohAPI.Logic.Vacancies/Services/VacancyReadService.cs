@@ -31,7 +31,7 @@ namespace PoohAPI.Logic.Vacancies.Services
             this.locationHelper = new LocationHelper();
         }
 
-        public IEnumerable<Vacancy> GetListVacancies(int maxcount = 5, int offset = 0, string additionallocationsearchterms = null, int? educationid = null, int? educationalattainmentid = null, IntershipType? internshiptype = null, int? languageid = null, string cityname = null, string countryname = null, int? locationrange = null)
+        public IEnumerable<Vacancy> GetListVacancies(int maxcount = 5, int offset = 0, string additionallocationsearchterms = null, int? educationid = null, decimal? minSalary = null, decimal? maxSalary = null, int? educationalattainmentid = null, IntershipType? internshiptype = null, int? languageid = null, string cityname = null, string countryname = null, int? locationrange = null)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
 
@@ -49,6 +49,9 @@ namespace PoohAPI.Logic.Vacancies.Services
 
             //Adding language filter to the query
             this.AddLanguageFilter(parameters, languageid);
+
+            //Adding Salary filter to the query
+            this.AddSalaryFilter(parameters, minSalary, maxSalary);
 
             //building the query
             string query = this.queryBuilder.BuildQuery();
@@ -201,6 +204,21 @@ namespace PoohAPI.Logic.Vacancies.Services
             {
                 this.queryBuilder.AddWhere("t.talen_id = @languageid");
                 parameters.Add("@languageid", languageid);
+            }
+        }
+
+        private void AddSalaryFilter(Dictionary<string, object> parameters, decimal? minSalary = null, decimal? maxSalary = null)
+        {
+            if(minSalary != null)
+            {
+                this.queryBuilder.AddHaving("vacature_salaris > @minSalary");
+                parameters.Add("@minSalary", minSalary);
+            }
+
+            if(maxSalary != null)
+            {
+                this.queryBuilder.AddHaving("vacature_salaris < @maxSalary");
+                parameters.Add("@maxSalaris", maxSalary);
             }
         }
     }

@@ -21,6 +21,7 @@ namespace PoohAPI.Infrastructure.VacancyDB.Models
         public int vacature_actief { get; set; }
         public decimal vacature_breedtegraad { get; set; }
         public decimal vacature_lengtegraad { get; set; }
+        public decimal vacature_salaris { get; set; }
         public string talen_naam { get; set; }
         public string opn_naam { get; set; }
         public string opleidingen { get; set; }
