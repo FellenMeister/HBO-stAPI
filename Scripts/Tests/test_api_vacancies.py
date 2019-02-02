@@ -84,6 +84,31 @@ def test_internshiptype():
 
             assert correct == True
 
+def test_min_salary():
+    minSalary = "492"
+    vacancies_request = requests.get(base_url+vacancies_path+"?minSalary=492")
+    f_test_status_code_200(vacancies_request)
+    vacancies = vacancies_request.json()
+    for i in range(0, len(vacancies)):
+        correct = True
+        base_vacancy = vacancies[i]
+        if base_vacancy["salary"] < minSalary:
+            correct = False
+
+        assert correct == True
+
+def test_max_salary():
+    maxSalary = "2413"
+    vacancies_request = requests.get(base_url+vacancies_path+"?maxSalary=2413")
+    f_test_status_code_200(vacancies_request)
+    vacancies = vacancies_request.json()
+    for i in range(0, len(vacancies)):
+        correct = True
+        base_vacancy = vacancies[i]
+        if base_vacancy["salary"] > maxSalary:
+            correct = False
+
+        assert correct == True
 
 def test_country_name():
     country_name = "Nederland"

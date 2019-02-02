@@ -122,6 +122,7 @@ vacancy_schema = {
                     'closingDate' : {'type' : 'string'},
                     'link' : {'type' : 'string'},
                     'educationalAttainment' : {'type' : 'string'},
+                    'salary' : {'type' : 'decimal'},
                     'internshipType' : {'type' : 'string'},
                     'location' : {'type' : 'dict', 'schema' : location_schema},
                     }
